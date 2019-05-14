@@ -1,0 +1,2 @@
+# functionPractice
+some function practices
