@@ -199,7 +199,7 @@ public class RBTree<T extends Comparable<T>> {
                 RBTNode<T> uncle = gParent.left;
                 // 1.  叔节点为红色
                 if (isRed(uncle)) {
-
+                    setBlack(uncle);
                 }
 
             }
