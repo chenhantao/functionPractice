@@ -32,6 +32,21 @@ public class RBTree<T extends Comparable<T>> {
     }
 
     /**
+     * 根据值来删除节点
+     * @param key 值
+     */
+    public void remove(T key) {
+        RBTNode<T> node = search(key);
+        if (node != null) {
+            remove(node);
+        }
+    }
+
+    public RBTNode<T> search(T key) {
+        return search(this.root, key);
+    }
+
+    /**
      * 对红黑树的节点(a)进行左旋转
      *
      * 左旋示意图(对节点a进行左旋)：
@@ -195,21 +210,60 @@ public class RBTree<T extends Comparable<T>> {
                 setBlack(parent);
                 setRed(gParent);
                 rightRotate(gParent);
-            } else {    // 父节点为祖父节点的右节点
+            } else {
+                // 父节点为祖父节点的右节点
                 RBTNode<T> uncle = gParent.left;
                 // 1.  叔节点为红色
                 if (isRed(uncle)) {
                     setBlack(uncle);
+                    setBlack(parent);
+                    setRed(gParent);
+                    node = gParent;
+                    continue;
                 }
+
+                // 2. 叔节点为黑色，且当前节点为左节点
+                if (parent.left == node) {
+                    RBTNode<T> temp;
+                    rightRotate(parent);
+                    temp = parent;
+                    parent = node;
+                    node = temp;
+                }
+
+                // 3. 叔节点是黑色, 且当前节点为右节点
+                setBlack(parent);
+                setRed(gParent);
+                lifeRotate(gParent);
 
             }
         }
+
+        setBlack(this.root);
     }
 
+    /**
+     * 删除节点，并返回
+     * @param node 待删除的节点
+     */
+    private void remove(RBTNode<T> node) {
+        RBTNode<T> child, parent;
+        boolean color;
 
+        // 被删除节点的左右子节点都不为空
+        if (node.left != null && node.right != null) {
+            // 用来替代被删除的节点，用该节点代替被删除的节点，然后再删除要删除的节点
+            RBTNode<T> replace;
 
+            // 获取后继节点
+            replace = node.right;
+            while (replace.left != null) {
+                replace = replace.left;
+            }
 
-
+            //
+        }
+    }
 
     // 一些简单的判空方法和赋值方法
     private RBTNode<T> parentOf(RBTNode<T> node) {
@@ -226,6 +280,20 @@ public class RBTree<T extends Comparable<T>> {
     private void setBlack(RBTNode node) {
         if (node != null) {
             node.color = BLACK;
+        }
+    }
+    private RBTNode<T> search(RBTNode<T> node, T key) {
+        if (node == null) {
+            return null;
+        }
+
+        int temp = key.compareTo(node.key);
+        if (temp < 0) {
+            return search(node.left, key);
+        } else if (temp > 0) {
+            return search(node.right, key);
+        } else {
+            return node;
         }
     }
 }
