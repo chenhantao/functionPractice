@@ -172,6 +172,35 @@ public class RBTree<T extends Comparable<T>> {
 
             // 若 父节点 是祖父节点的左节点
             if (parent == gParent.left) {
+                RBTNode<T> uncle = gParent.right;
+                // 1: 叔节点为红色
+                if (isRed(uncle)) {
+                    setBlack(parent);
+                    setRed(gParent);
+                    setBlack(uncle);
+                    node = gParent;
+                    continue;
+                }
+
+                // 2. 叔节点为黑色，且当前节点为右节点
+                if (parent.right == node) {
+                    RBTNode<T> temp;
+                    lifeRotate(parent);
+                    temp = parent;
+                    parent = node;
+                    node = temp;
+                }
+
+                // 3. 叔节点是黑色，且当前节点是左节点
+                setBlack(parent);
+                setRed(gParent);
+                rightRotate(gParent);
+            } else {    // 父节点为祖父节点的右节点
+                RBTNode<T> uncle = gParent.left;
+                // 1.  叔节点为红色
+                if (isRed(uncle)) {
+
+                }
 
             }
         }
@@ -188,5 +217,15 @@ public class RBTree<T extends Comparable<T>> {
     }
     private boolean isRed(RBTNode<T> node) {
         return node != null && node.color == RED;
+    }
+    private void setRed(RBTNode node) {
+        if (node != null) {
+            node.color = RED;
+        }
+    }
+    private void setBlack(RBTNode node) {
+        if (node != null) {
+            node.color = BLACK;
+        }
     }
 }
