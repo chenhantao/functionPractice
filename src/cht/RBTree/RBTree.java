@@ -54,7 +54,7 @@ public class RBTree<T extends Comparable<T>> {
      *     /                               /
      *    a                               b
      *   /  \      --(左旋)-.           / \                #
-     *  la   b                          a  ry
+     *  la   b                          a  rb
      *     /   \                       /  \
      *    lb   rb                     la  lb
      *
