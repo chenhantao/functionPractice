@@ -72,5 +72,48 @@
 
 右旋转：顺时针旋转红黑树的两个节点，使得父节点被自己的左孩子取代，而自己成为自己的右孩子。
 ```$代码也是大致如此
+    /**
+     * 对红黑树的节点(b)进行右旋转
+     *
+     * 右旋示意图(对节点b进行左旋)：
+     *            pb                               pb
+     *           /                                /
+     *          b                                a
+     *         /  \      --(右旋)-.            /  \                     #
+     *        a   rb                           la   b
+     *       / \                                   / \                   #
+     *      la  ra                                ra  rb
+     *
+     * @param b 右旋的节点
+     */
+    private void rightRotate(RBTNode<T> b) {
+        // 获取b的左节点a
+        RBTNode<T> a = b.left;
 
+        // b的左节点变为a的右节点
+        b.left = a.right;
+        // ra不为空的话，父节点变为b
+        if (a.right != null) {
+            a.right.parent = b;
+        }
+
+        // 右旋后，b的父节点变为a的父节点
+        a.parent = b.parent;
+
+        // b有可能是根节点
+        if (b.parent == null) {
+            this.root = a;
+        } else {
+            if (b.parent.left == b) {
+                b.parent.left = a;
+            } else {
+                b.parent.right = a;
+            }
+        }
+
+        a.right = b;
+        b.parent = a;
+    }
 ```
+
+Java中TreeMap和TreeSet的底层是红黑树，1.8里，HashMap也用到了红黑树，根据源码，大于8时，才会采用红黑树，但是代码可读性略差，不是很好懂，因此借鉴了网上博客的内容
