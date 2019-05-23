@@ -25,10 +25,25 @@ public class RBTree<T extends Comparable<T>> {
      * @param key 值
      */
     public void insert(T key) {
-        RBTNode<T> node = new RBTNode<>(key, BLACK, null, null, null);
+        RBTNode<T> node = new RBTNode<>(key, RED, null, null, null);
 
         System.out.println("新建node节点成功");
         insert(node);
+    }
+
+    /**
+     * 根据值来删除节点
+     * @param key 值
+     */
+    public void remove(T key) {
+        RBTNode<T> node = search(key);
+        if (node != null) {
+            remove(node);
+        }
+    }
+
+    public RBTNode<T> search(T key) {
+        return search(this.root, key);
     }
 
     /**
@@ -39,7 +54,7 @@ public class RBTree<T extends Comparable<T>> {
      *     /                               /
      *    a                               b
      *   /  \      --(左旋)-.           / \                #
-     *  la   b                          a  ry
+     *  la   b                          a  rb
      *     /   \                       /  \
      *    lb   rb                     la  lb
      *
@@ -195,21 +210,143 @@ public class RBTree<T extends Comparable<T>> {
                 setBlack(parent);
                 setRed(gParent);
                 rightRotate(gParent);
-            } else {    // 父节点为祖父节点的右节点
+            } else {
+                // 父节点为祖父节点的右节点
                 RBTNode<T> uncle = gParent.left;
                 // 1.  叔节点为红色
                 if (isRed(uncle)) {
                     setBlack(uncle);
+                    setBlack(parent);
+                    setRed(gParent);
+                    node = gParent;
+                    continue;
                 }
+
+                // 2. 叔节点为黑色，且当前节点为左节点
+                if (parent.left == node) {
+                    RBTNode<T> temp;
+                    rightRotate(parent);
+                    temp = parent;
+                    parent = node;
+                    node = temp;
+                }
+
+                // 3. 叔节点是黑色, 且当前节点为右节点
+                setBlack(parent);
+                setRed(gParent);
+                lifeRotate(gParent);
 
             }
         }
+
+        setBlack(this.root);
     }
 
+    /**
+     * 删除节点，并返回
+     * @param node 待删除的节点
+     */
+    private void remove(RBTNode<T> node) {
+        RBTNode<T> child, parent;
+        boolean color;
+
+        // 被删除节点的左右子节点都不为空
+        if (node.left != null && node.right != null) {
+            // 用来替代被删除的节点，用该节点代替被删除的节点，然后再删除要删除的节点
+            RBTNode<T> replace;
+
+            // 获取后继节点
+            replace = node.right;
+            while (replace.left != null) {
+                replace = replace.left;
+            }
+
+            // node节点不是根节点，即没有父节点的节点
+            if (parentOf(node) != null) {
+                if (parentOf(node).left == node) {
+                    parentOf(node).left = replace;
+                } else {
+                    parentOf(node).right = replace;
+                }
+            } else {
+                this.root = replace;
+            }
+
+            // child是后继节点的右子节点，后继节点不存在左子节点
+            child = replace.right;
+            parent = parentOf(replace);
+
+            // 保存取代节点的颜色
+            color = replace.color;
+
+            // 被删除的节点是后继节点的父节点
+            if (parent == node) {
+                parent = replace;
+            } else {
+                // child不为空
+                if (child != null) {
+                    child.parent = parent;
+                }
+                parent.left = child;
+
+                replace.right = node.right;
+                node.right.parent = replace;
+            }
+
+            replace.parent = node.parent;
+            replace.color = node.color;
+            replace.left = node.left;
+            node.left.parent = replace;
+
+            if (color == BLACK) {
+                removeFix(child, parent);
+            }
+            //node = null;
+            return;
+
+        }
+
+        if (node.left != null) {
+            child = node.left;
+        } else {
+            child = node.right;
+        }
+
+        parent = node.parent;
+        // 保存取代节点的颜色
+        color = node.color;
+
+        if (child != null) {
+            child.parent = parent;
+        }
+
+        // node不是根节点
+        if (parent != null) {
+            if (parent.left == node) {
+                parent.left = child;
+            } else {
+                parent.right = child;
+            }
+        } else {
+            this.root = child;
+        }
+
+        if (color == BLACK) {
+            removeFix(child, parent);
+        }
+        //node = null;
+    }
+
+    /**
+     * 红黑树修正函数，删除节点后调用
+     * @param node 带修正的点
+     * @param parent 父节点
+     */
+    private void removeFix(RBTNode<T> node, RBTNode<T> parent) {
+        RBTNode<T> other;
 
 
-
-
+    }
 
     // 一些简单的判空方法和赋值方法
     private RBTNode<T> parentOf(RBTNode<T> node) {
@@ -226,6 +363,20 @@ public class RBTree<T extends Comparable<T>> {
     private void setBlack(RBTNode node) {
         if (node != null) {
             node.color = BLACK;
+        }
+    }
+    private RBTNode<T> search(RBTNode<T> node, T key) {
+        if (node == null) {
+            return null;
+        }
+
+        int temp = key.compareTo(node.key);
+        if (temp < 0) {
+            return search(node.left, key);
+        } else if (temp > 0) {
+            return search(node.right, key);
+        } else {
+            return node;
         }
     }
 }
