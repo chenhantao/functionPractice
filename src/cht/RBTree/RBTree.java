@@ -20,33 +20,6 @@ public class RBTree<T extends Comparable<T>> {
     private static final boolean BLACK = true;
 
     /**
-     *
-     * 对外的插入接口，主要用于赋值key
-     * @param key 值
-     */
-    public void insert(T key) {
-        RBTNode<T> node = new RBTNode<>(key, RED, null, null, null);
-
-        System.out.println("新建node节点成功");
-        insert(node);
-    }
-
-    /**
-     * 根据值来删除节点
-     * @param key 值
-     */
-    public void remove(T key) {
-        RBTNode<T> node = search(key);
-        if (node != null) {
-            remove(node);
-        }
-    }
-
-    public RBTNode<T> search(T key) {
-        return search(this.root, key);
-    }
-
-    /**
      * 对红黑树的节点(a)进行左旋转
      *
      * 左旋示意图(对节点a进行左旋)：
@@ -418,6 +391,92 @@ public class RBTree<T extends Comparable<T>> {
         }
 
 
+    }
+
+    /**
+     *
+     * 对外的插入接口，主要用于赋值key
+     * @param key 值
+     */
+    public void insert(T key) {
+        RBTNode<T> node = new RBTNode<>(key, RED, null, null, null);
+
+        System.out.println("新建node节点成功");
+        insert(node);
+    }
+
+    /**
+     * 根据值来删除节点
+     * @param key 值
+     */
+    public void remove(T key) {
+        RBTNode<T> node = search(key);
+        if (node != null) {
+            remove(node);
+        }
+    }
+
+    /**
+     * 查询接口，通过值来查找节点
+     * @param key 值
+     * @return key对应的节点
+     */
+    public RBTNode<T> search(T key) {
+        return search(this.root, key);
+    }
+
+    public RBTNode<T> minNode(RBTNode<T> node) {
+        if (node == null) {
+            return null;
+        }
+        while (node.left != null) {
+            node = node.left;
+        }
+        return node;
+    }
+
+    public RBTNode<T> maxNode(RBTNode<T> node) {
+        if (node == null) {
+            return null;
+        }
+        while (node.right != null) {
+            node = node.right;
+        }
+        return node;
+    }
+
+    public void proOrder() {
+        this.preOrder(this.root);
+    }
+    private void preOrder(RBTNode<T> node) {
+        if (node != null) {
+            System.out.println(node.key + " ");
+            preOrder(node.left);
+            preOrder(node.right);
+        }
+    }
+
+    public void inOrder() {
+        this.preOrder(this.root);
+    }
+    private void inOrder(RBTNode<T> node) {
+        if (node != null) {
+            inOrder(node.left);
+            System.out.println(node.key + " ");
+            inOrder(node.right);
+        }
+    }
+
+    public void postOrder() {
+        this.postOrder(this.root);
+    }
+
+    private void postOrder(RBTNode<T> node) {
+        if (node != null) {
+            postOrder(node.left);
+            postOrder(node.right);
+            System.out.println(node.key + " ");
+        }
     }
 
     // 一些简单的判空方法和赋值方法
