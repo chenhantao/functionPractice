@@ -24,6 +24,8 @@ public class RBTreeTest {
         Arrays.stream(a).forEach(tree::insert);
         tree.order();
 
+        tree.remove(3);
+        tree.order();
 
 
     }
