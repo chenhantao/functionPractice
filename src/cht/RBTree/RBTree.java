@@ -1,7 +1,5 @@
 package cht.RBTree;
 
-import java.util.Arrays;
-
 /**
  * 模仿红黑树
  * 1.节点是红色或黑色。
