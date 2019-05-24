@@ -1,5 +1,7 @@
 package cht.RBTree;
 
+import java.util.Arrays;
+
 /**
  * 模仿红黑树
  * 1.节点是红色或黑色。
@@ -401,7 +403,7 @@ public class RBTree<T extends Comparable<T>> {
     public void insert(T key) {
         RBTNode<T> node = new RBTNode<>(key, RED, null, null, null);
 
-        System.out.println("新建node节点成功");
+        //System.out.println("新建node节点成功");
         insert(node);
     }
 
@@ -450,19 +452,19 @@ public class RBTree<T extends Comparable<T>> {
     }
     private void preOrder(RBTNode<T> node) {
         if (node != null) {
-            System.out.println(node.key + " ");
+            System.out.print(node.key + " ");
             preOrder(node.left);
             preOrder(node.right);
         }
     }
 
     public void inOrder() {
-        this.preOrder(this.root);
+        this.inOrder(this.root);
     }
     private void inOrder(RBTNode<T> node) {
         if (node != null) {
             inOrder(node.left);
-            System.out.println(node.key + " ");
+            System.out.print(node.key + " ");
             inOrder(node.right);
         }
     }
@@ -475,8 +477,22 @@ public class RBTree<T extends Comparable<T>> {
         if (node != null) {
             postOrder(node.left);
             postOrder(node.right);
-            System.out.println(node.key + " ");
+            System.out.print(node.key + " ");
         }
+    }
+
+    public void order() {
+        System.out.println("前序遍历: ");
+        this.proOrder();
+        System.out.println();
+
+        System.out.println("中序遍历: ");
+        this.inOrder();
+        System.out.println();
+
+        System.out.println("后序遍历: ");
+        this.postOrder();
+        System.out.println();
     }
 
     // 一些简单的判空方法和赋值方法
