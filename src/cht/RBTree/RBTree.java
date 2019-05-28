@@ -20,33 +20,6 @@ public class RBTree<T extends Comparable<T>> {
     private static final boolean BLACK = true;
 
     /**
-     *
-     * 对外的插入接口，主要用于赋值key
-     * @param key 值
-     */
-    public void insert(T key) {
-        RBTNode<T> node = new RBTNode<>(key, RED, null, null, null);
-
-        System.out.println("新建node节点成功");
-        insert(node);
-    }
-
-    /**
-     * 根据值来删除节点
-     * @param key 值
-     */
-    public void remove(T key) {
-        RBTNode<T> node = search(key);
-        if (node != null) {
-            remove(node);
-        }
-    }
-
-    public RBTNode<T> search(T key) {
-        return search(this.root, key);
-    }
-
-    /**
      * 对红黑树的节点(a)进行左旋转
      *
      * 左旋示意图(对节点a进行左旋)：
@@ -60,7 +33,7 @@ public class RBTree<T extends Comparable<T>> {
      *
      * @param a 左旋的节点
      */
-    private void lifeRotate(RBTNode<T> a) {
+    private void leftRotate(RBTNode<T> a) {
         // a的右节点
         RBTNode<T> b = a.right;
 
@@ -200,7 +173,7 @@ public class RBTree<T extends Comparable<T>> {
                 // 2. 叔节点为黑色，且当前节点为右节点
                 if (parent.right == node) {
                     RBTNode<T> temp;
-                    lifeRotate(parent);
+                    leftRotate(parent);
                     temp = parent;
                     parent = node;
                     node = temp;
@@ -234,7 +207,7 @@ public class RBTree<T extends Comparable<T>> {
                 // 3. 叔节点是黑色, 且当前节点为右节点
                 setBlack(parent);
                 setRed(gParent);
-                lifeRotate(gParent);
+                leftRotate(gParent);
 
             }
         }
@@ -343,9 +316,181 @@ public class RBTree<T extends Comparable<T>> {
      * @param parent 父节点
      */
     private void removeFix(RBTNode<T> node, RBTNode<T> parent) {
-        RBTNode<T> other;
+        // node 的兄弟节点
+        RBTNode<T> otherNode;
+
+        while ((node == null || isBlack(node)) && (node != this.root)) {
+            if (parent.left == node) {
+                otherNode = parent.right;
+                if (isRed(otherNode)) {
+                    // case 1. node的兄弟节点是红色
+                    setBlack(otherNode);
+                    setRed(parent);
+                    leftRotate(parent);
+                    otherNode = parent.right;
+                }
+
+                if ((otherNode.left == null || isBlack(otherNode.left)) && (otherNode.right == null || isBlack(otherNode.right))) {
+                    // case 2. node的兄弟节点是黑色，且兄弟节点的两个子节点也是黑色
+                    setRed(otherNode);
+                    node = parent;
+                    parent = parentOf(node);
+                } else {
+                    if (otherNode.right == null || isBlack(otherNode.right)) {
+                        // case 3. node的兄弟节点是黑色，但是兄弟节点的左节点是红色，右节点是黑色
+                        setBlack(otherNode.left);
+                        setRed(otherNode);
+                        rightRotate(otherNode);
+                        otherNode = parent.right;
+                    }
+                    // case 4. node的兄弟节点是黑色，并且兄弟节点的右节点是红色，左节点任意颜色
+                    otherNode.color = parent.color;
+                    setBlack(parent);
+                    setBlack(otherNode.right);
+                    leftRotate(parent);
+                    node = this.root;
+                    break;
+                }
+            } else {
+                otherNode = parent.left;
+
+                if (isRed(otherNode)) {
+                    // case 1. node的兄弟节点是红色
+                    setBlack(otherNode);
+                    setRed(parent);
+                    rightRotate(parent);
+                    otherNode = parent.left;
+                }
+
+                if ((otherNode.left == null || isBlack(otherNode.left)) && (otherNode.right == null || isBlack(otherNode.right))) {
+                    // case 2. node的兄弟节点是黑色，且兄弟节点的两个子节点也都是黑色
+                    setRed(otherNode);
+                    node = parent;
+                    parent = parentOf(node);
+                } else {
+                    if (otherNode.left == null || isBlack(otherNode.left)) {
+                        // case 3. node的兄弟节点是黑色，且兄弟节点的左节点是红色，右节点是黑色
+                        setBlack(otherNode.right);
+                        setRed(otherNode);
+                        leftRotate(otherNode);
+                        otherNode = parent.left;
+                    }
+                    // case 4. node的兄弟节点是黑的，且兄弟节点的右节点是红色，左节点任意
+                    otherNode.color = parent.color;
+                    setBlack(parent);
+                    setBlack(otherNode.left);
+                    rightRotate(parent);
+                    node = this.root;
+                    break;
+                }
+            }
+        }
+
+        if (node != null) {
+            setBlack(node);
+        }
 
 
+    }
+
+    /**
+     *
+     * 对外的插入接口，主要用于赋值key
+     * @param key 值
+     */
+    public void insert(T key) {
+        RBTNode<T> node = new RBTNode<>(key, RED, null, null, null);
+
+        //System.out.println("新建node节点成功");
+        insert(node);
+    }
+
+    /**
+     * 根据值来删除节点
+     * @param key 值
+     */
+    public void remove(T key) {
+        RBTNode<T> node = search(key);
+        if (node != null) {
+            remove(node);
+        }
+    }
+
+    /**
+     * 查询接口，通过值来查找节点
+     * @param key 值
+     * @return key对应的节点
+     */
+    public RBTNode<T> search(T key) {
+        return search(this.root, key);
+    }
+
+    public RBTNode<T> minNode(RBTNode<T> node) {
+        if (node == null) {
+            return null;
+        }
+        while (node.left != null) {
+            node = node.left;
+        }
+        return node;
+    }
+
+    public RBTNode<T> maxNode(RBTNode<T> node) {
+        if (node == null) {
+            return null;
+        }
+        while (node.right != null) {
+            node = node.right;
+        }
+        return node;
+    }
+
+    public void proOrder() {
+        this.preOrder(this.root);
+    }
+    private void preOrder(RBTNode<T> node) {
+        if (node != null) {
+            System.out.print(node.key + " ");
+            preOrder(node.left);
+            preOrder(node.right);
+        }
+    }
+
+    public void inOrder() {
+        this.inOrder(this.root);
+    }
+    private void inOrder(RBTNode<T> node) {
+        if (node != null) {
+            inOrder(node.left);
+            System.out.print(node.key + " ");
+            inOrder(node.right);
+        }
+    }
+
+    public void postOrder() {
+        this.postOrder(this.root);
+    }
+
+    private void postOrder(RBTNode<T> node) {
+        if (node != null) {
+            postOrder(node.left);
+            postOrder(node.right);
+            System.out.print(node.key + " ");
+        }
+    }
+
+    public void order() {
+        System.out.println("前序遍历: ");
+        this.proOrder();
+        System.out.println();
+
+        System.out.println("中序遍历: ");
+        this.inOrder();
+        System.out.println();
+
+        System.out.println("后序遍历: ");
+        this.postOrder();
+        System.out.println();
     }
 
     // 一些简单的判空方法和赋值方法
@@ -354,6 +499,9 @@ public class RBTree<T extends Comparable<T>> {
     }
     private boolean isRed(RBTNode<T> node) {
         return node != null && node.color == RED;
+    }
+    private boolean isBlack(RBTNode<T> node) {
+        return node != null && node.color == BLACK;
     }
     private void setRed(RBTNode node) {
         if (node != null) {
