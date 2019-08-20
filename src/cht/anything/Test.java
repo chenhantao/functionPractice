@@ -1,5 +1,8 @@
 package cht.anything;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * TODO
  *
@@ -8,14 +11,16 @@ package cht.anything;
  */
 public class Test {
     public static void main(String[] args) {
-        User user1 = new User("1",  "1");
-        User user2 = user1;
+        List<Integer> a = new ArrayList<>();
+        a.add(1);
+        a.add(2);
+        a.add(3);
 
-        User user3 = new User();
-        user3 = user1;
+        List<Integer> b = new ArrayList<>();
+        b.add(2);
 
-        System.out.println(user1.hashCode());
-        System.out.println(user2.hashCode());
-        System.out.println(user3.hashCode());
+        a.retainAll(b);
+
+        System.out.println(a);
     }
 }
