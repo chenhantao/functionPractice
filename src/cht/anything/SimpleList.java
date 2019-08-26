@@ -25,6 +25,7 @@ public class SimpleList<T> {
     public boolean add(T e) {
         if (size >= elementData.length) {
             Object[] temp = new Object[(elementData.length * 2)];
+            // 扩容+拷贝数据  可以优化
             for (int i = 0; i < elementData.length; i++) {
                 Object elementDatum = elementData[i];
                 temp[i] = elementDatum;

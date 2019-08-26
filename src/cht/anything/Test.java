@@ -13,7 +13,7 @@ public class Test {
             test.add(i);
             System.out.println(test.get(i));
         }
-
+        System.out.println(test.size());
 
     }
 }
