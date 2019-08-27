@@ -1,4 +1,4 @@
-package cht.RBTree;
+package cht.tree.RBTree;
 
 /**
  * 模仿红黑树

@@ -1,4 +1,4 @@
-package cht.RBTree;
+package cht.tree.RBTree;
 
 /**
  * 红黑树节点实现类
