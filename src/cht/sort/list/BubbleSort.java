@@ -15,6 +15,11 @@ public class BubbleSort {
      * 最最简单的冒泡排序
      */
     public static <T extends Comparable<T>> void bubbleSort(List<T> list) {
+        if (list == null || list.size() == 0) {
+            System.out.println("数组为空");
+            return;
+        }
+
         long start = System.currentTimeMillis();
 
         T temp;

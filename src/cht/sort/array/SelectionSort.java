@@ -8,6 +8,11 @@ package cht.sort.array;
  */
 public class SelectionSort {
     public static <E extends Comparable<E>> void selectionSort(E[] array) {
+        if (array.length == 0) {
+            System.out.println("数组为空");
+            return;
+        }
+
         long start = System.currentTimeMillis();
 
         for (int i = 0; i < array.length - 1; i++) {
