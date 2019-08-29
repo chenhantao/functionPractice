@@ -33,16 +33,5 @@ public class QuickSort {
 
         int index = start;
 
-        while (right >= left) {
-            if (array[right].compareTo(pivot) < 0) {
-                array[left] = array[right];
-                index = right;
-                left++;
-                break;
-            }
-            right--;
-        }
-
-        while (right)
     }
 }
