@@ -173,14 +173,14 @@ public class BubbleSort {
         }
         long start = System.currentTimeMillis();
         E temp;
-        // 记录右侧最后一次交换的位置
-        int lastRightExchangedIndex = 0;
-        // 记录左侧最后一次交换的位置
-        int lastLeftExchangedIndex = 0;
         // 无序数列的右边界
         int rightSortBorder = array.length - 1;
         // 无序数列的左边界
         int leftSortBorder = 0;
+        // 记录右侧最后一次交换的位置
+        int lastRightExchangedIndex = 0;
+        // 记录左侧最后一次交换的位置
+        int lastLeftExchangedIndex = 0;
         for (int i = 0; i < array.length / 2; i++) {
             boolean isChanged = false;
 
