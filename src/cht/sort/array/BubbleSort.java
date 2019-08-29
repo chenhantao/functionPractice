@@ -113,6 +113,13 @@ public class BubbleSort {
         System.out.println("耗时: " + (System.currentTimeMillis() - start) + "ms");
     }
 
+    /**
+     * 基础的鸡尾酒排序
+     * 原理大致上从左到右来一次冒泡，然后从右到左反正比较一次
+     *
+     * @param array
+     * @param <E>
+     */
     public static <E extends Comparable<E>> void cockTailSortBase(E[] array) {
         if (array.length == 0) {
             System.out.println("数组为空");
