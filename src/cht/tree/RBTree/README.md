@@ -120,17 +120,17 @@
 > 1. 红黑树复杂度 O(log n)
 > 2. 红黑树不会变成 二叉~~（瘸子）~~查找树
 > 3. Java中TreeMap和TreeSet的底层是红黑树，1.8里，HashMap也用到了红黑树，根据源码，大于8时，才会采用红黑树，但是代码可读性略差，不是很好懂，因此借鉴了网上博客的内容。另外，Java8中，HashMap只有数据大于8时才会转为红黑树，这个看文档说是
->> Because TreeNodes are about twice the size of regular nodes, we use them only when bins contain enough nodes to warrant use (see TREEIFY_THRESHOLD). And when they become too small (due to removal or resizing) they are converted back to plain bins. In usages with well-distributed user hashCodes, tree bins are rarely used. Ideally, under random hashCodes, the frequency of nodes in bins follows a Poisson distribution (http://en.wikipedia.org/wiki/Poisson_distribution) with a parameter of about 0.5 on average for the default resizing threshold of 0.75, although with a large variance because of resizing granularity. Ignoring variance, the expected occurrences of list size k are (exp(-0.5) * pow(0.5, k) / factorial(k)). The first values are:
-   0: 0.60653066
-   1: 0.30326533
-   2: 0.07581633
-   3: 0.01263606
-   4: 0.00157952
-   5: 0.00015795
-   6: 0.00001316
-   7: 0.00000094
-   8: 0.00000006
-   more: less than 1 in ten million
+>> Because TreeNodes are about twice the size of regular nodes, we use them only when bins contain enough nodes to warrant use (see TREEIFY_THRESHOLD). And when they become too small (due to removal or resizing) they are converted back to plain bins. In usages with well-distributed user hashCodes, tree bins are rarely used. Ideally, under random hashCodes, the frequency of nodes in bins follows a Poisson distribution (http://en.wikipedia.org/wiki/Poisson_distribution) with a parameter of about 0.5 on average for the default resizing threshold of 0.75, although with a large variance because of resizing granularity. Ignoring variance, the expected occurrences of list size k are (exp(-0.5) * pow(0.5, k) / factorial(k)). The first values are:  
+   0: 0.60653066  
+   1: 0.30326533  
+   2: 0.07581633  
+   3: 0.01263606  
+   4: 0.00157952  
+   5: 0.00015795  
+   6: 0.00001316  
+   7: 0.00000094  
+   8: 0.00000006  
+   more: less than 1 in ten million  
    简单解释一下，理想情况下，在随机哈希代码下，桶中的节点频率遵循
    泊松分布，文中给出了桶长度k的频率表。
    由频率表可以看出，桶的长度超过8的概率非常非常小。所以作者应该是根据
