@@ -22,7 +22,10 @@ public class QuickSort {
             return;
         }
 
+        int pivotIndex = partition(array, start, end);
 
+        quickSort(array, start, pivotIndex - 1);
+        quickSort(array, pivotIndex + 1, end);
     }
 
     private static <E extends Comparable<E>> int partition(E[] array, int start, int end) {
@@ -33,5 +36,26 @@ public class QuickSort {
 
         int index = start;
 
+        while (left != right) {
+            while (left < right && array[right].compareTo(pivot) > 0) {
+                right--;
+            }
+
+            while (left < right && array[left].compareTo(pivot) <= 0) {
+                left++;
+            }
+
+            if (left < right) {
+                E temp = array[left];
+                array[left] = array[right];
+                array[right] = temp;
+            }
+        }
+        // 交换基准
+        E temp = array[left];
+        array[left] = array[start];
+        array[start] = temp;
+
+        return left;
     }
 }
