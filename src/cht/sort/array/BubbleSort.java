@@ -31,7 +31,7 @@ public class BubbleSort {
             }
         }
 
-        System.out.println("耗时: " + (System.currentTimeMillis() - start) + "s");
+        System.out.println("耗时: " + (System.currentTimeMillis() - start) + "ms");
     }
 
 
@@ -67,7 +67,7 @@ public class BubbleSort {
                 break;
             }
         }
-        System.out.println("耗时: " + (System.currentTimeMillis() - start) + "s");
+        System.out.println("耗时: " + (System.currentTimeMillis() - start) + "ms");
     }
 
     /**
