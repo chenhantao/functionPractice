@@ -1,4 +1,4 @@
-package cht.Queen;
+package cht.queen;
 
 /**
  * 八皇后
