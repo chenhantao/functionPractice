@@ -1,4 +1,4 @@
-package cht.tree.RBTree;
+package cht.tree.rbtree;
 
 import java.util.Arrays;
 
