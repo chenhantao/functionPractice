@@ -16,6 +16,7 @@ public class SelectionSort {
         long start = System.currentTimeMillis();
 
         for (int i = 0; i < array.length - 1; i++) {
+            // 记录要插入的索引位置
             int minIndex = i;
             for (int j = i + 1; j < array.length; j++) {
                 minIndex = array[i].compareTo(array[j]) < 0 ? i : j;
