@@ -8,12 +8,15 @@ package cht.anything;
  */
 public class Test {
     public static void main(String[] args) {
-        SimpleList<Integer> test = new SimpleList<>();
-        for (int i = 0; i < 11; i++) {
-            test.add(i);
-            System.out.println(test.get(i));
-        }
-        System.out.println(test.size());
+        User user = new User("asd", "as");
+        Test.change(user);
+        System.out.println(user.toString());
 
+
+    }
+
+    public static void change(User user) {
+        user = new User();
+        user.setName("hahah");
     }
 }

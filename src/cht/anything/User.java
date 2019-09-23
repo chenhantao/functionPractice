@@ -21,6 +21,11 @@ public class User {
         return name;
     }
 
+    @Override
+    public String toString() {
+        return name + "+" + password;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
