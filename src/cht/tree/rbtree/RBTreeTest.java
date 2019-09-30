@@ -18,7 +18,7 @@ public class RBTreeTest {
         System.out.print("原始数据: ");
         //Arrays.stream(a).forEach(e -> System.out.print(e + " "));
         for (int i : a) {
-            System.out.println(i + " ");
+            System.out.print(i + " ");
         }
         System.out.println();
 
