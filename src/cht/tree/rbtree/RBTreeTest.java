@@ -1,7 +1,5 @@
 package cht.tree.rbtree;
 
-import java.util.Arrays;
-
 /**
  * 红黑树测试
  *
@@ -18,11 +16,17 @@ public class RBTreeTest {
         int[] a = {11, 3, 20, 21, 44, 80, 311, 32, 1, 500};
 
         System.out.print("原始数据: ");
-        Arrays.stream(a).forEach(e -> System.out.print(e + " "));
+        //Arrays.stream(a).forEach(e -> System.out.print(e + " "));
+        for (int i : a) {
+            System.out.println(i + " ");
+        }
         System.out.println();
 
         RBTree<Integer> tree = new RBTree<>();
-        Arrays.stream(a).forEach(tree::insert);
+        //Arrays.stream(a).forEach(tree::insert);
+        for (int i : a) {
+            tree.insert(i);
+        }
         tree.order();
 
         tree.remove(3);
