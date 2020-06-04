@@ -1,4 +1,4 @@
-package cht.RBTree;
+package cht.tree.rbtree;
 
 import java.util.Arrays;
 
@@ -14,6 +14,7 @@ public class RBTreeTest {
     //private static final int[] a = {10, 40, 30, 60, 90, 70, 20, 50, 80};
 
     public static void main(String[] args) {
+        long start = System.currentTimeMillis();
         int[] a = {11, 3, 20, 21, 44, 80, 311, 32, 1, 500};
 
         System.out.print("原始数据: ");
@@ -27,6 +28,6 @@ public class RBTreeTest {
         tree.remove(3);
         tree.order();
 
-
+        System.out.println("耗时: " + (System.currentTimeMillis() - start));
     }
 }

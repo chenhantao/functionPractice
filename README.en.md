@@ -10,7 +10,28 @@ Software architecture description
 idea
 
 #### Instructions
-one function, one packa
+git configuration, used by myself
+```$xslt
+[core]
+	repositoryformatversion = 0
+	filemode = false
+	bare = false
+	logallrefupdates = true
+	symlinks = false
+	ignorecase = true
+[remote "origin"]
+	url = https://gitee.com/chenhantao_cht/functionPractice.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "master"]
+	remote = origin
+	merge = refs/heads/master
+[branch "develop"]
+	remote = origin
+	merge = refs/heads/develop
+[remote "github"]
+	url = https://github.com/CerHT/functionPractice.git
+	fetch = +refs/heads/*:refs/remotes/github/*
+```
 
 #### Contribution
 

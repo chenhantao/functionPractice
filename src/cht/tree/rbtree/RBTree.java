@@ -1,4 +1,4 @@
-package cht.RBTree;
+package cht.tree.rbtree;
 
 /**
  * 模仿红黑树
@@ -445,7 +445,7 @@ public class RBTree<T extends Comparable<T>> {
         return node;
     }
 
-    public void proOrder() {
+    public void preOrder() {
         this.preOrder(this.root);
     }
     private void preOrder(RBTNode<T> node) {
@@ -481,7 +481,7 @@ public class RBTree<T extends Comparable<T>> {
 
     public void order() {
         System.out.println("前序遍历: ");
-        this.proOrder();
+        this.preOrder();
         System.out.println();
 
         System.out.println("中序遍历: ");
