@@ -178,7 +178,7 @@ public class BubbleSort {
             System.out.println("数组为空");
             return;
         }
-        long start = System.currentTimeMillis();
+        long start = System.nanoTime();
         E temp;
         // 无序数列的右边界
         int rightSortBorder = array.length - 1;
@@ -227,6 +227,6 @@ public class BubbleSort {
 
         }
 
-        System.out.println("耗时: " + (System.currentTimeMillis() - start) + "s");
+        System.out.println("耗时: " + (System.nanoTime() - start) + "ns");
     }
 }

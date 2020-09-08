@@ -1,8 +1,9 @@
 package cht.sort;
 
 import java.util.Arrays;
+import java.util.Random;
 
-import cht.sort.array.ShellSort;
+import cht.sort.array.BubbleSort;
 
 /**
  * 随便测试啦
@@ -11,24 +12,20 @@ import cht.sort.array.ShellSort;
  * @since 2019/8/27
  */
 public class SortTest {
+    private static Random random = new Random();
+
+
     public static void main(String[] args) {
-        int[] a = new int[]{1, 3, 5, 11, 32, 13, 51, 12, 53, 32, 141, 1111, 123, 15, 133, 121, 8, 21, 22, 1233, 23456,
-                1232, 55, 51, 76, 531, 889, 12335, 22333, 33, 64, 88, 345, 980};
-        Integer[] b = new Integer[a.length];
-        for (int i = 0; i < a.length; i++) {
-            b[i] = a[i];
-        }
-
-//        InsertionSort.insertionSort(b);
-//        System.out.println(Arrays.toString(b));
-
-        String[] test = new String[]{"ad", "asdsa", "scve", "ascfq", "sssss", "apsdnmkl"};
-        //BubbleSort.cockTailSortUpdate(test);
-        ShellSort.shellSort(b);
-        //QuickSort.quickSort(b);
-        System.out.println(Arrays.toString(b));
-        System.out.println(Arrays.toString(test));
+        bubbleTest();
     }
 
-
+    public static void bubbleTest() {
+        Integer[] integers = new Integer[100];
+        for (int i = 0; i < 100; i++) {
+            integers[i] = random.nextInt(1000);
+        }
+        System.out.println("排序前: " + Arrays.toString(integers));
+        BubbleSort.bubbleSortBase(integers);
+        System.out.println("排序后: " + Arrays.toString(integers));
+    }
 }

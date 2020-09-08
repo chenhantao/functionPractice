@@ -18,7 +18,7 @@ public class SingletonC {
 
     private static SingletonC instance;
 
-    private static SingletonC getInstance() {
+    public static SingletonC getInstance() {
         if (instance == null) {
             instance = new SingletonC();
         }
