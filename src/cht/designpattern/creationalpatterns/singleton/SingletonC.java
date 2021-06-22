@@ -1,4 +1,4 @@
-package cht.singleton;
+package cht.designpattern.creationalpatterns.singleton;
 
 /**
  * 懒汉式(线程不安全)

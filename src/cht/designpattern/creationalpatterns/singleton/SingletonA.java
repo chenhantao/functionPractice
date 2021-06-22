@@ -1,4 +1,4 @@
-package cht.singleton;
+package cht.designpattern.creationalpatterns.singleton;
 
 /**
  * 饿汉式 静态常量

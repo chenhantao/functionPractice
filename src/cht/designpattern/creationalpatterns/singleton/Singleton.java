@@ -1,4 +1,4 @@
-package cht.singleton;
+package cht.designpattern.creationalpatterns.singleton;
 
 /**
  * 孔乙己用手指敲着桌面
@@ -10,7 +10,7 @@ package cht.singleton;
  */
 public class Singleton {
     public static void main(String[] args) {
-
+        
     }
 
 }

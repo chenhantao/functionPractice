@@ -1,4 +1,4 @@
-package cht.singleton;
+package cht.designpattern.creationalpatterns.singleton;
 
 /**
  * 懒汉式(线程安全，同步代码块)

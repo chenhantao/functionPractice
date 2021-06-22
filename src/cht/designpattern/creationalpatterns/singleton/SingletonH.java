@@ -1,4 +1,4 @@
-package cht.singleton;
+package cht.designpattern.creationalpatterns.singleton;
 
 /**
  * 枚举
@@ -20,4 +20,8 @@ package cht.singleton;
  */
 public enum SingletonH {
     SINGLETON_H;
+
+    public void whatever() {
+        System.out.println("this is enum Singleton");
+    }
 }
