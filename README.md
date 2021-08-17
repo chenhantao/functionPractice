@@ -21,7 +21,7 @@ git配置，自用
 	symlinks = false
 	ignorecase = true
 [remote "origin"]
-	url = https://gitee.com/chenhantao_cht/functionPractice.git
+	url = https://gitee.com/chenhantao/functionPractice.git
 	fetch = +refs/heads/*:refs/remotes/origin/*
 [branch "master"]
 	remote = origin
@@ -30,7 +30,7 @@ git配置，自用
 	remote = origin
 	merge = refs/heads/develop
 [remote "github"]
-	url = https://github.com/CerHT/functionPractice.git
+	url = https://github.com/chenhantao/functionPractice.git
 	fetch = +refs/heads/*:refs/remotes/github/*
 ```
 
